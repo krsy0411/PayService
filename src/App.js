@@ -1,4 +1,5 @@
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { CreateGroup } from "./components/CreateGroup";
 import { AddMembers } from "./components/AddMembers";
