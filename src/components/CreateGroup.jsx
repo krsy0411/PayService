@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Container, Form, Row, Button } from "react-bootstrap";
 import { useRecoilState } from "recoil";
+import styled from "styled-components";
 import { groupNameState } from "../state/groupName";
 import { CenteredOverlayForm } from "./CenteredOverlayForm";
 
@@ -27,38 +28,55 @@ export const CreateGroup = () => {
   };
 
   return (
-    <div>
-      <h1>Dutch Pay Service</h1>
-
+    <CenteredOverlayForm>
       <Container>
-        <Form noValidate validated={validated} onSubmit={handleSubmit}>
-          <Row>
-            <h2>더치 페이 할 그룹의 이름 정하기</h2>
-          </Row>
+        <StyledRow>
+          <Form noValidate validated={validated} onSubmit={handleSubmit}>
+            <Row className="align-items-start">
+              <h2>더치 페이 할 그룹의 이름 정하기</h2>
+            </Row>
 
-          <Row>
-            <Form.Group controlId="validationGroupName">
-              {/* input값이 들어올 때마다 setGroupName에 값을 저장(useRecoilState) */}
-              <Form.Control
-                type="text"
-                required
-                placeholder="2023 부산 여행"
-                onChange={(e) => setGroupName(e.target.value)}
-              />
+            <Row className="align-items-center">
+              <Form.Group controlId="validationGroupName">
+                {/* input값이 들어올 때마다 setGroupName에 값을 저장(useRecoilState) */}
+                <Form.Control
+                  type="text"
+                  required
+                  placeholder="2023 부산 여행"
+                  onChange={(e) => setGroupName(e.target.value)}
+                />
 
-              <Form.Control.Feedback type="invalid" data-valid={validGroupName}>
-                그룹 이름을 입력해주시길 바랍니다.
-              </Form.Control.Feedback>
-            </Form.Group>
-          </Row>
+                <Form.Control.Feedback
+                  type="invalid"
+                  data-valid={validGroupName}
+                >
+                  그룹 이름을 입력해주시길 바랍니다.
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Row>
 
-          <Row>
-            <Button type="submit">저장</Button>
-          </Row>
-        </Form>
+            <Row className="align-items-end">
+              <Button type="submit">저장</Button>
+            </Row>
+          </Form>
+        </StyledRow>
       </Container>
-
-      {/* <CenteredOverlayForm /> */}
-    </div>
+    </CenteredOverlayForm>
   );
 };
+
+const StyledRow = styled(Row)`
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+`;
+
+const StyledSubmitButton = styled(Button)`
+  background-color: #6610f2;
+  border-radius: 8px;
+
+  &:hover {
+    background-color: #6610f2;
+    filter: brightness(80%);
+  }
+`;
