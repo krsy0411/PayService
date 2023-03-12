@@ -12,6 +12,7 @@ export const CenteredOverlayForm = ({
   return (
     <StyledCentralizedContainer>
       <Logo />
+
       <OverlayWrapper>
         <Container>
           <Form noValidate validated={validated} onSubmit={handleSubmit}>
