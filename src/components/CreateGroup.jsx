@@ -3,7 +3,7 @@ import { Container, Form, Row, Button } from "react-bootstrap";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { groupNameState } from "../state/groupName";
-import { CenteredOverlayForm } from "./CenteredOverlayForm";
+import { CenteredOverlayForm } from "./shared/CenteredOverlayForm";
 
 export const CreateGroup = () => {
   const [validated, setValidated] = useState(false);

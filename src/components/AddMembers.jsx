@@ -1,4 +1,4 @@
-import { CenteredOverlayForm } from "./CenteredOverlayForm";
+import { CenteredOverlayForm } from "./shared/CenteredOverlayForm";
 
 export const AddMembers = () => {
   return (
