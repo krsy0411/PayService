@@ -30,6 +30,7 @@ export const AddMembers = () => {
     >
       {/* 상태관리 recoil로부터 가져옴 */}
       <InputTags
+        values={groupMembers}
         placeholder="이름 간 띄어쓰기"
         // 태그 값이 넘어오면 setGroupMembers에 상태저장
         onTags={(value) => setGroupMembers(value.values)}
