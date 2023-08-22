@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Logo = () => <StyledLogo>Dutch Pay</StyledLogo>;
 
 const StyledLogo = styled.h1`
-  font-weight: 200;
+  font-weight: 700;
   letter-spacing: 10px;
   color: slateblue;
   text-align: center;
