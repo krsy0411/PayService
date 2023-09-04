@@ -1,12 +1,13 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
-// import { groupMembersState } from "../state/ groupMembers";
+import { groupMembersState } from "../state/groupMembers";
 import { useState } from "react";
 import styled from "styled-components";
 import { Col, Form, Row, Button } from "react-bootstrap";
 import { expensesState } from "../state/expenses";
 
 export const AddExpenseForm = () => {
-  const members = ["시영", "태양", "진우"]; //useRecoilValue(groupMembersState);
+  const members = useRecoilValue(groupMembersState);
+  // 날짜 설정을 위한 Date객체
   const today = new Date();
   const [date, setDate] = useState(
     [
@@ -45,11 +46,8 @@ export const AddExpenseForm = () => {
 
     if (checkValidity()) {
       setValidated(true);
-      // console.log(desc);
-      // console.log(payer);
-      // console.log(amount);
-
-      setExpense([{ date, desc, amount, payer }]);
+      // 이전 값들도 누적되어 보이도록
+      setExpense((expenses) => [...expenses, { date, desc, amount, payer }]);
     }
     setValidated(true);
   };
@@ -121,7 +119,7 @@ export const AddExpenseForm = () => {
                 </option>
                 {members &&
                   members.map((member) => (
-                    <option key={member} value={member || ""}>
+                    <option key={member} value={member}>
                       {member}
                     </option>
                   ))}

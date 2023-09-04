@@ -43,8 +43,7 @@ export const SettlementSummary = () => {
             </span>
             <br />
             <span>
-              한 사람 당{" "}
-              {getDescriptiveAmount(currency, splitAmount.toFixed(2))}
+              한 사람당 {getDescriptiveAmount(currency, splitAmount.toFixed(2))}
             </span>
           </StyledSummary>
 
@@ -52,7 +51,7 @@ export const SettlementSummary = () => {
             {minimumTransaction.map(({ sender, receiver, amount }, idx) => (
               <li key={`transaction-${idx}`}>
                 <span>
-                  {sender}가 {receiver}에게{" "}
+                  {sender}(이)가 {receiver}에게{" "}
                   {getDescriptiveAmount(currency, amount.toFixed(2))}원
                 </span>
               </li>

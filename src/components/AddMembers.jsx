@@ -21,9 +21,15 @@ export const AddMembers = () => {
   const handleSubmit = (e) => {
     // form 안에서 submit 버튼을 눌렀어도 새로 실행하지 않도록 막는 문장
     e.preventDefault();
-    // '저장'버튼을 클릭하면 validated를 true로
-    setValidated(true);
-    navigate(ROUTES.EXPENSE_MAIN);
+    // 멤버들이 입력되어 있어야 넘어갈 수 있도록 설정
+    if (groupMembers && groupMembers.length > 0) {
+      // '저장'버튼을 클릭하면 validated를 true로
+      setValidated(true);
+      console.log(groupMembers);
+      navigate(ROUTES.EXPENSE_MAIN);
+    } else {
+      setValidated(false);
+    }
   };
 
   return (
