@@ -1,7 +1,6 @@
 import { Col, Container, Row } from "react-bootstrap";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { useGroupData } from "../hooks/useGroupData";
 import { Logo } from "./shared/Logo";
 import { groupNameState } from "../state/groupName";
 import { AddExpenseForm } from "./AddExpenseForm";

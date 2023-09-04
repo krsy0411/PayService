@@ -12,10 +12,10 @@ export const AddMembers = () => {
   // groupMembersState의 key name : groupMembers
   const [groupMembers, setGroupMembers] = useRecoilState(groupMembersState);
   // groupNameState의 key name : groupName
-  const { groupName } = useRecoilValue(groupNameState);
+  const groupName = useRecoilValue(groupNameState);
   const [validated, setValidated] = useState(false);
   // 상태관리 recoil로부터 가져옴
-  const header = `먼저, ${groupName}그룹에 속한 사람들의 이름을 적어볼게요`;
+  const header = `먼저, ${groupName} 그룹에 속한 사람들의 이름을 적어볼게요`;
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -25,8 +25,6 @@ export const AddMembers = () => {
     setValidated(true);
     navigate(ROUTES.EXPENSE_MAIN);
   };
-
-  console.log(groupName);
 
   return (
     <CenteredOverlayForm
