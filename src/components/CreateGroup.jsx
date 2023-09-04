@@ -1,15 +1,18 @@
 import { useState } from "react";
 import { Form } from "react-bootstrap";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { groupNameState } from "../state/groupName";
 import { CenteredOverlayForm } from "./shared/CenteredOverlayForm";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../routes";
 
 export const CreateGroup = () => {
   const [validated, setValidated] = useState(false);
   // [read, write] 용도 : validation 컴포넌트를 상태관리
-  const setGroupName = useSetRecoilState(groupNameState);
+  const [groupName, setGroupName] = useRecoilState(groupNameState);
   // Form.Control.Feedback의 활성화 여부를 설정해주기 위한 상태관리 : [read, write]
   const [validGroupName, setValidGroupName] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     // 현재 이벤트 타겟(createGroup페이지의 Form component)
@@ -20,7 +23,9 @@ export const CreateGroup = () => {
       event.stopPropagation();
       setValidGroupName(false);
     } else {
+      // 정보가 제대로 들어갔다면
       setValidGroupName(true);
+      navigate(ROUTES.ADD_MEMBERS);
     }
     // validation form 검증을 수행했다면(틀린 정보의 경우에도)
     setValidated(true);
@@ -38,7 +43,9 @@ export const CreateGroup = () => {
           type="text"
           required
           placeholder="2023 부산 여행"
-          onChange={(e) => setGroupName(e.target.value)}
+          onChange={(e) => {
+            setGroupName(e.target.value);
+          }}
         />
 
         <Form.Control.Feedback type="invalid" data-valid={validGroupName}>

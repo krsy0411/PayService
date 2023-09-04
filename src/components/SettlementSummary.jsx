@@ -24,6 +24,7 @@ export const SettlementSummary = () => {
   const groupMembersCnt = members ? members.length : 0;
   // 1인당 금액 : 총액 / 그룹 내 총원수
   const splitAmount = totalExpenseAmount / groupMembersCnt;
+  // 총 비용, 총 인원수, 1인당 금액을 넣어서 -> 배열 안 객체 반환
   const minimumTransaction = calculateMinimumTransaction(
     expenses,
     members,
@@ -46,6 +47,17 @@ export const SettlementSummary = () => {
               {getDescriptiveAmount(currency, splitAmount.toFixed(2))}
             </span>
           </StyledSummary>
+
+          <StyledUl>
+            {minimumTransaction.map(({ sender, receiver, amount }, idx) => (
+              <li key={`transaction-${idx}`}>
+                <span>
+                  {sender}가 {receiver}에게{" "}
+                  {getDescriptiveAmount(currency, amount.toFixed(2))}원
+                </span>
+              </li>
+            ))}
+          </StyledUl>
           {/* todo : StyledUI 그리기 */}
         </>
       )}
@@ -56,7 +68,7 @@ export const SettlementSummary = () => {
 const calculateMinimumTransaction = (expenses, members, amountPerPerson) => {
   const minimumTransactions = [];
   // 만약 아무 정보도 없으면 그냥 빈 배열 반환
-  if (!expenses || !members || !amountPerPerson || amountPerPerson == 0) {
+  if (!expenses || !members || !amountPerPerson || amountPerPerson === 0) {
     return minimumTransactions;
   }
   // 정보들이 들어온 경우
@@ -113,7 +125,7 @@ const calculateMinimumTransaction = (expenses, members, amountPerPerson) => {
       right--;
     }
   }
-
+  // 배열안 객체들 반환
   return minimumTransactions;
 };
 
@@ -135,4 +147,22 @@ const StyledWrapper = styled.div`
 
 const StyledSummary = styled.div`
   margin-top: 1em;
+`;
+
+const StyledUl = styled.ul`
+  /* 현재 컴포넌트의 font-size속성따라 크기 변경: em : default: 16px */
+  margin-top: 1em;
+  font-weight: 600;
+  line-height: 200%;
+
+  list-style-type: disclosure-closed;
+  li::marker {
+    animation: blinker 1.5s linear infinite;
+  }
+
+  @keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+  }
 `;

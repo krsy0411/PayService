@@ -1,11 +1,12 @@
-import { useRecoilValue } from "recoil";
-import { groupMembersState } from "../state/groupMembers";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+// import { groupMembersState } from "../state/ groupMembers";
 import { useState } from "react";
 import styled from "styled-components";
 import { Col, Form, Row, Button } from "react-bootstrap";
+import { expensesState } from "../state/expenses";
 
 export const AddExpenseForm = () => {
-  const members = useRecoilValue(groupMembersState);
+  const members = ["시영", "태양", "진우"]; //useRecoilValue(groupMembersState);
   const today = new Date();
   const [date, setDate] = useState(
     [
@@ -23,6 +24,8 @@ export const AddExpenseForm = () => {
   const [isPayerValid, setIsPayerValid] = useState(false);
   const [isAmountValid, setIsAmountValid] = useState(false);
 
+  const setExpense = useSetRecoilState(expensesState);
+
   const checkValidity = () => {
     const descValid = desc.length > 0;
     const payerValid = payer !== null;
@@ -35,12 +38,18 @@ export const AddExpenseForm = () => {
     return descValid && payerValid && amountValid;
   };
 
+  // todo : 추가하기 버튼 눌렀을때 정보 넘기기
   const handleSubmit = (event) => {
     event.preventDefault();
     event.stopPropagation();
 
     if (checkValidity()) {
       setValidated(true);
+      // console.log(desc);
+      // console.log(payer);
+      // console.log(amount);
+
+      setExpense([{ date, desc, amount, payer }]);
     }
     setValidated(true);
   };
@@ -55,7 +64,7 @@ export const AddExpenseForm = () => {
               <Form.Control
                 type="date"
                 placeholder="결제한 날짜를 선택해 주세요"
-                value={date}
+                value={date || ""}
                 onChange={(e) => setDate(e.target.value)}
               />
             </StyledFormGroup>
@@ -70,7 +79,7 @@ export const AddExpenseForm = () => {
                 isInvalid={!isDescValid && validated}
                 isValid={isDescValid}
                 placeholder="비용에 대한 설명을 입력해 주세요"
-                value={desc}
+                value={desc || ""}
                 onChange={({ target }) => setDesc(target.value)}
               />
               <Form.Control.Feedback type="invalid" data-valid={isDescValid}>
@@ -88,7 +97,7 @@ export const AddExpenseForm = () => {
                 step="0.01"
                 placeholder="비용은 얼마였나요?"
                 min="0"
-                value={amount}
+                value={amount || ""}
                 isInvalid={!isAmountValid && validated}
                 isValid={isAmountValid}
                 onChange={({ target }) => setAmount(target.value)}
@@ -112,7 +121,7 @@ export const AddExpenseForm = () => {
                 </option>
                 {members &&
                   members.map((member) => (
-                    <option key={member} value={member}>
+                    <option key={member} value={member || ""}>
                       {member}
                     </option>
                   ))}

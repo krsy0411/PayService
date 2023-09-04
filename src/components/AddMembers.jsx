@@ -1,26 +1,32 @@
 import { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { CenteredOverlayForm } from "./shared/CenteredOverlayForm";
 import { groupMembersState } from "../state/groupMembers";
 import { groupNameState } from "../state/groupName";
 import { InputTags } from "react-bootstrap-tagsinput";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../routes";
 
 export const AddMembers = () => {
   // groupMembersState의 key name : groupMembers
   const [groupMembers, setGroupMembers] = useRecoilState(groupMembersState);
   // groupNameState의 key name : groupName
-  const { groupName } = useRecoilState(groupNameState);
+  const { groupName } = useRecoilValue(groupNameState);
   const [validated, setValidated] = useState(false);
   // 상태관리 recoil로부터 가져옴
   const header = `먼저, ${groupName}그룹에 속한 사람들의 이름을 적어볼게요`;
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     // form 안에서 submit 버튼을 눌렀어도 새로 실행하지 않도록 막는 문장
     e.preventDefault();
     // '저장'버튼을 클릭하면 validated를 true로
     setValidated(true);
+    navigate(ROUTES.EXPENSE_MAIN);
   };
+
+  console.log(groupName);
 
   return (
     <CenteredOverlayForm
